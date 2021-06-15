@@ -10,6 +10,6 @@ public class Main {
                 new Cat("Mister Bigglesworth"), new Robot("Robocop", 150, 7), new Robot("Fedor"));
         team.membersInfo();
         team.passCourse(course);
-        team.winnersInfo();
+        team.winnersInfo() ;
     }
 }
