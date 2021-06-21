@@ -16,10 +16,9 @@ public class Main {
 
         String[][] badArray = {
                 {"2","3","4","9"},
-                {"6","3","5","2"},
+                {"6","3"},
                 {"8","7","3","6"},
                 {"5","4","9","1"},
-                {"7","6","3","2"},
         };
 
         String[][] uglyArray = {
@@ -33,8 +32,8 @@ public class Main {
         Main main = new Main();
         try {
             //main.methodSum(goodArray);
-            //main.methodSum(badArray);
-            main.methodSum(uglyArray);
+            main.methodSum(badArray);
+            //main.methodSum(uglyArray);
             System.out.println(count);
         }catch (MyArraySizeException ex){
             System.out.println(ex.getMessage());
@@ -44,18 +43,20 @@ public class Main {
     }
 
     public void methodSum(String[][] array) throws MyArrayDataException, MyArraySizeException {
-        if(array.length == 4 && array[0].length == 4){
-            for (int i = 0; i < array.length; i++) {
-                for (int j = 0; j < array[0].length; j++) {
-                    try {
-                        count += Integer.parseInt(array[i][j]);
-                    }catch (NumberFormatException e){
-                     throw new MyArrayDataException(i,j);
-                    }
+        if(array.length != 4){
+            throw new MyArraySizeException();
+        }
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].length != 4){
+                throw new MyArraySizeException();
+            }
+            for (int j = 0; j < array[i].length; j++) {
+                try {
+                    count += Integer.parseInt(array[i][j]);
+                }catch (NumberFormatException e){
+                    throw new MyArrayDataException(i,j);
                 }
             }
-        }else{
-            throw new MyArraySizeException();
         }
     }
 }
