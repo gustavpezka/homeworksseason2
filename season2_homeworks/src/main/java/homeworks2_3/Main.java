@@ -12,5 +12,16 @@ public class Main {
                 "uniform", "trivial",};
         WordArraysAnalyzer analyzer = new WordArraysAnalyzer();
         analyzer.findSimilar(array);
+
+        PhoneBook phoneBook = new PhoneBook();
+        phoneBook.add("01", "Fireman");
+        phoneBook.add("02", "Policeman");
+        phoneBook.add("03", "Medicman");
+        phoneBook.add("04", "Gasman");
+        phoneBook.add("012", "Fireman");
+        phoneBook.add("013", "Fireman");
+        phoneBook.add("014", "Policeman");
+
+        System.out.println(phoneBook.getNumber("Fireman"));
     }
 }
