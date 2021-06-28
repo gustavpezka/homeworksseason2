@@ -1,23 +1,26 @@
 
 package homeworks2_3;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class PhoneBook {
-    HashMap<String, String> phoneBook = new HashMap<>();
+    HashMap<String, HashSet<String>> phoneBook = new HashMap<>();
 
     public void add(String number, String name){
-        phoneBook.put(number, name);
+        if (phoneBook.containsKey(name)){
+            HashSet<String> numberSet = phoneBook.get(name);
+            numberSet.add(number);
+            phoneBook.put(name, numberSet);
+        }else{
+            HashSet<String> numberSet = new HashSet<>();
+            numberSet.add(number);
+            phoneBook.put(name, numberSet);
+        }
+
     }
 
-    public ArrayList<String> getNumber(String name){
-        ArrayList<String> numbersList = new ArrayList<>();
-        for (HashMap.Entry entry : phoneBook.entrySet()){
-            if(entry.getValue().equals(name)){
-                numbersList.add((String)entry.getKey());
-            }
-        }
-        return numbersList;
+    public HashSet<String> getNumber(String name){
+        return phoneBook.get(name);
     }
 }
