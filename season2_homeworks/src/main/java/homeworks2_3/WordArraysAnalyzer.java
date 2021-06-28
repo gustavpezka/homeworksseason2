@@ -13,15 +13,15 @@ public class WordArraysAnalyzer {
             map.put(s, 0);
         }
 
-        for (Map.Entry<String,Integer> entry : map.entrySet()) {
-            int count = 0;
-            for (String word:array) {
+        for (String word:array) {
+            for (Map.Entry<String,Integer> entry : map.entrySet()){
                 if (entry.getKey().equals(word)){
-                    count++;
+                    entry.getValue();
+                    entry.setValue(entry.getValue() + 1);
                 }
             }
-            entry.setValue(count);
         }
+
         map.forEach((key,value) -> System.out.println("Word: " + key + " is in array " + value + " times"));
     }
 }
