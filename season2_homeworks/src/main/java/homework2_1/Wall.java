@@ -1,20 +1,18 @@
 package homework2_1;
 
 public class Wall implements Obstacle {
-    private int height;
-    private String type = "Wall";
+    private final int height;
 
     public Wall(int height) {
         this.height = height;
     }
 
-    @Override
-    public String getType() {
-        return type;
+    public int getHeight() {
+        return height;
     }
 
     @Override
-    public int getParam() {
-        return height;
+    public void overcome(Creature creature) {
+        creature.jump(this);
     }
 }
