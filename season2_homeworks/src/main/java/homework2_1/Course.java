@@ -23,13 +23,6 @@ public class Course {
         }
     }
 
-    public void courseInfo(){
-        for (Obstacle obstacle : obstacles) {
-            System.out.println(obstacle.getType());
-            System.out.println(obstacle.getParam());
-        }
-    }
-
     public Obstacle[] getObstacles() {
         return obstacles;
     }

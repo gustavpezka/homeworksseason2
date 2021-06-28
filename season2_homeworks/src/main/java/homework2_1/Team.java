@@ -11,8 +11,8 @@ public class Team {
         team[2] = member2;
         team[3] = member3;
     }
-
-    public void passCourse(Course course){
+}
+/*    public void passCourse(Course course){
         for (Obstacle trial:course.getObstacles()) {
             System.out.println(String.format("NEW OBSTACLE! %s %d meters", trial.getClass().getSimpleName(), trial.getParam()));
             for (Creature creature : team) {
@@ -34,13 +34,13 @@ public class Team {
             }
         }
 
-    }
+    }*/
 
-    public void membersInfo(){
+/*    public void membersInfo(){
         System.out.println(String.format("This is team %s", teamName));
         for (int i = 0; i < team.length; i++) {
             System.out.println(String.format("Member %d - %s %s! It can jump %d meters high and run %d meters long",
                     i+1, team[i].getClass().getSimpleName(), team[i].getName(), team[i].getHeight(),team[i].getLength()));
         }
     }
-}
+}*/

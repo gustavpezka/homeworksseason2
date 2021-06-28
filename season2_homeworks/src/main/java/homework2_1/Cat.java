@@ -1,58 +1,42 @@
 package homework2_1;
 
 public class Cat implements Creature {
-    private int maxRunningDistance = 50;
-    private String name;
-    private int maxJumpingHeight = 2;
-    private boolean status = true;
+    private final String name;
+    private final int runLimit;
+    private final int jumpLimit;
+    private boolean play;
 
-    public Cat(String name, int maxRunningDistance, int maxJumpingHeight) {
+    public Cat(String name, int runLimit, int jumpLimit) {
         this.name = name;
-        this.maxRunningDistance = maxJumpingHeight;
-        this.maxJumpingHeight = maxRunningDistance;
-    }
-
-    public Cat(String name) {
-        this.name = name;
+        this.runLimit = runLimit;
+        this.jumpLimit = jumpLimit;
+        this.play = true;
     }
 
     @Override
-    public void jump(int jumpingHeight) {
-        if(maxJumpingHeight>jumpingHeight){
-            System.out.println(String.format("Cat %s successfully jumped over the obstacle", name));
-        }else{
-            System.out.println(String.format("Cat %s failed to jump over the obstacle and is disqualified", name));
-            status = false;
+    public boolean isPlay() {
+        return play;
+    }
+
+    @Override
+    public void jump(Wall wall) {
+        if(play){
+            if(jumpLimit>=wall.getHeight()){
+                System.out.printf("Cat %s jumped over a wall %d meters high",name,wall.getHeight());
+                return;
+            }
+            System.out.printf("Cat %s failed to jump over a wall %d meters high",name,wall.getHeight());
         }
     }
 
     @Override
-    public void run(int runningDistance) {
-        if(maxRunningDistance>runningDistance){
-            System.out.println(String.format("Cat %s successfully ran the distance", name));
-        }else {
-            System.out.println(String.format("Cat %s failed to complete the run and is disqualified", name));
-            status = false;
+    public void run(Treadmill treadmill) {
+        if(play){
+            if(runLimit>=treadmill.getLength()){
+                System.out.printf("Cat %s ran on a treadmill %d meters",name,treadmill.getLength());
+                return;
+            }
+            System.out.printf("Cat %s failed to ran on a treadmill %d meters",name,treadmill.getLength());
         }
-    }
-
-    @Override
-    public boolean getStatus() {
-        return status;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public int getHeight() {
-        return maxJumpingHeight;
-    }
-
-    @Override
-    public int getLength() {
-        return maxRunningDistance;
     }
 }

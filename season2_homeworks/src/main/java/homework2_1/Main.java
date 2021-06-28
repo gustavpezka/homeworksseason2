@@ -2,14 +2,34 @@ package homework2_1;
 
 public class Main {
     public static void main(String[] args) {
+        Main main1 = new Main();
+        main1.play();
+    }
 
-        Course course = new Course( 5);
-        course.courseInfo();
+    void play(){
+        Creature[]creatures = {
+                new Human("Fsds", 10,3),
+                new Cat("Fdfgvb", 12,4),
+                new Robot("sdfgsv", 15,1),
+        };
+        
+        Obstacle[] obstacles = {
+                new Treadmill(5),
+                new Treadmill(10),
+                new Wall(1),
+                new Wall(4)
+        };
 
-        Team team = new Team("FTW!", new Human("Volodja",150,10),
-                new Cat("Mister Bigglesworth"), new Robot("Robocop", 150, 7), new Robot("Fedor"));
-        team.membersInfo();
-        team.passCourse(course);
-        team.winnersInfo() ;
+        for (Obstacle obstacle: obstacles) {
+            for (Creature creature : creatures) {
+                obstacle.overcome(creature);
+            }
+        }
+
+        for (Creature creature: creatures){
+            if (creature.isPlay()){
+
+            }
+        }
     }
 }

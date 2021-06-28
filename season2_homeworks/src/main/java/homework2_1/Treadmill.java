@@ -1,20 +1,18 @@
 package homework2_1;
 
 public class Treadmill implements Obstacle {
-    private int length;
-    private String type = "Treadmill";
+    private final int length;
 
     public Treadmill(int length) {
         this.length = length;
     }
 
-    @Override
-    public String getType() {
-        return type;
+    public int getLength() {
+        return length;
     }
 
     @Override
-    public int getParam() {
-        return length;
+    public void overcome(Creature creature) {
+        creature.run(this);
     }
 }
