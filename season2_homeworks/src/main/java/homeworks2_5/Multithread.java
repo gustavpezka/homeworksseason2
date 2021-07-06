@@ -2,8 +2,8 @@ package homeworks2_5;
 
 public class Multithread{
     public static void main(String[] args) {
-        //firstMethod();
-        secondMethod();
+        firstMethod();
+        //secondMethod();
     }
 
     public static void firstMethod() {
@@ -43,6 +43,13 @@ public class Multithread{
         });
         thread1.start();
         thread2.start();
+        try {
+            thread1.join();
+            thread2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
 
         float[] mergedArr = new float[size];
         System.arraycopy(leftArr,0,mergedArr,0,5_000_000);
