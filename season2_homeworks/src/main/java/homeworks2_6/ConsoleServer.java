@@ -13,32 +13,22 @@ public class ConsoleServer {
         ConsoleServer consoleServer = new ConsoleServer();
         new Thread(() -> {
             while (true) {
-                try {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-                    String messageToClient = reader.readLine();
-                    consoleServer.out.writeUTF("Message from server: " + messageToClient);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                consoleServer.sendMessage();
             }
         }).start();
 
         new Thread(()->{
             while (true) {
-                try {
-                    System.out.println(consoleServer.in.readUTF());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                consoleServer.receiveMessage();
             }
         }).start();
     }
 
     public ConsoleServer() {
         try (ServerSocket serverSocket = new ServerSocket(8189)) {
-            System.out.println("Сервер запущен, ожидаем подключения...");
+            System.out.println("Server is running, awaiting client...");
             socket = serverSocket.accept();
-            System.out.println("Клиент подключился");
+            System.out.println("Client connected");
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {
@@ -46,9 +36,15 @@ public class ConsoleServer {
         }
     }
 
-    public void sendMessage(String messageToServer) throws IOException{
+    public void sendMessage(){
         try {
-            out.writeUTF(messageToServer);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            String messageToClient = reader.readLine();
+            if (messageToClient.equalsIgnoreCase("/end")){
+                closeConnection();
+                System.exit(0);
+            }
+            this.out.writeUTF("Server: " + messageToClient);
         }catch (IOException e){
             e.printStackTrace();
             System.out.println("Problem with outgoing message");
@@ -57,9 +53,10 @@ public class ConsoleServer {
 
     public void receiveMessage(){
         try {
-            String messageFromClient = in.readUTF();
-            if (messageFromClient.equals("/end")){
+            String messageFromClient = this.in.readUTF();
+            if (messageFromClient.equalsIgnoreCase("/end")){
                 closeConnection();
+                System.exit(0);
             }
             System.out.println(messageFromClient);
         } catch (IOException e) {
@@ -67,7 +64,7 @@ public class ConsoleServer {
         }
     }
 
-    public void closeConnection() throws IOException{
+    public void closeConnection(){
         try{
             in.close();
         }catch (IOException e){

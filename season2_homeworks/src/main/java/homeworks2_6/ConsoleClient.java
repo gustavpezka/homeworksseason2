@@ -28,6 +28,7 @@ public class ConsoleClient{
                 while (true) {
                     String messageFromServer = in.readUTF();
                     if(messageFromServer.equalsIgnoreCase("/end")){
+                        closeConnection();
                         break;
                     }
                     System.out.println(messageFromServer);
@@ -38,15 +39,13 @@ public class ConsoleClient{
         }).start();
 
         new Thread(()->{
-            try {
                 while (true) {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-                    String messageToServer = reader.readLine();
-                    out.writeUTF("Client: " + messageToServer);
+                    try {
+                        sendMessage();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }).start();
     }
 
@@ -68,9 +67,11 @@ public class ConsoleClient{
         }
     }
 
-    public void sendMessage(String messageToServer) throws IOException{
+    public void sendMessage() throws IOException{
        try {
-           out.writeUTF("Message from client: " + messageToServer);
+           BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+           String messageToServer = reader.readLine();
+           out.writeUTF("Client: " + messageToServer);
        }catch (IOException e){
            e.printStackTrace();
            System.out.println("Problem with outgoing message");
